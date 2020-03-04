@@ -1,6 +1,19 @@
 import React, { Component } from 'react';
 
 const CapsuleContext =  React.createContext();
+
+const reducer = (state,action)=>{
+switch (action.type) {
+  case "CHANGE_CURRENT_CATEGORY":
+    return{
+      ...state,
+    currentCategory : action.payload.categoryName
+    }
+    default:
+      return state
+}
+}
+
 export class CapsuleProvider extends Component {
     state = {
         currentCategory: "",
@@ -8,6 +21,9 @@ export class CapsuleProvider extends Component {
         products: [],
         apiUrl: "http://localhost:3000/",
         cart: [],
+        dispatch : action => {
+          this.setState(state => reducer(state,action))
+        }
         
       }
 
@@ -19,12 +35,10 @@ export class CapsuleProvider extends Component {
       getCategoryId = (catId) => {
         this.getProducts(catId);
       }
-      changeCurrentCategory = dataForChange => {
-        this.setState({ currentCategory: dataForChange.categoryName });
-      }
+     
 
        /* --- Method of Product ---*/
-  getProducts = (categoryId) => {
+    getProducts = (categoryId) => {
     if (categoryId) {
       fetch(this.state.apiUrl + "products/?categoryId=" + categoryId).then(res => res.json()).then(
         data => this.setState({ products: data }))

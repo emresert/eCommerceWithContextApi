@@ -5,25 +5,29 @@ import CapsuleConsumer from '../../context/Context'
 
 
 class CategoryList extends Component {
+
+  changeCurrentCategory = (category,dispatch,e) => {
+   dispatch({type :"CHANGE_CURRENT_CATEGORY",payload : category})
+  }
   render() {
     return (
       <CapsuleConsumer>
         {
           value => {
 
-            const { categories} = value;
+            const { categories,dispatch,currentCategory} = value;
             return (
               <div>
                 <ListGroup>
                   {categories.map(
-                    category =>(
+                    cat =>(
                     
-                      <ListGroupItem key={category.id}>{category.categoryName}</ListGroupItem>
+                      <ListGroupItem onClick={this.changeCurrentCategory.bind(this,cat,dispatch)} key={cat.id}>{cat.categoryName}</ListGroupItem>
                     
-                    )
+                    ) 
                   )}
                   </ListGroup>
-
+                  <h2>{currentCategory}</h2>
               </div>
             )
 
