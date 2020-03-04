@@ -18,7 +18,8 @@ switch (action.type) {
         filteredProduct: state.products.filter(x => x.categoryId === action.payload.id)
       } 
     default:
-      return state
+      
+    return state
 }
 }
 
