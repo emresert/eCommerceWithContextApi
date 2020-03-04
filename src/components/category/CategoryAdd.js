@@ -9,7 +9,8 @@ class CategoryAdd extends Component {
 
     state = {
         isVisible: false,
-        isShow: true
+        isShow: true,
+        value:"+ Open Form"    
     }
 
     handleChange = (event) => {
@@ -23,16 +24,21 @@ class CategoryAdd extends Component {
 
     }
     saveCategory = (event, dispatch) => {
-        dispatch({ type: "SAVE_CATEGORY_TO_API", payload: event.state })
+        dispatch({ type: "SAVE_CATEGORY_TO_API", payload: {id : event.state.id , categoryName : event.state.categoryName , seoUrl:event.state.seoUrl}})
     }
     onClickTest = () => {
-
+        if (!this.state.isVisible) {
+            this.setState({ value: "+ Open Form" })  
+        }
+        else{
+            this.setState({ value: "- Close Form" })
+        }
+        
         this.setState({ isVisible: !this.state.isVisible })
         this.setState({ isShow: !this.state.isShow })
     }
 
     noneStyle = {
-
         display: "none"
     }
     showDisplay = {
@@ -49,7 +55,7 @@ class CategoryAdd extends Component {
                         return (
                             <div>
 
-                                <Button onClick={this.onClickTest} className="mt-5"> + Open Form</Button>
+                                <Button color="success" onClick={this.onClickTest} className="mt-5"> {this.state.value}</Button>
 
                                 <div style={this.state.isVisible ? null : this.noneStyle}>
 
@@ -76,7 +82,7 @@ class CategoryAdd extends Component {
                                                 onChange={this.handleChange}
                                                 placeholder="enter a seo url" />
                                         </FormGroup>
-                                        <Button onClick={() => this.saveCategory(this, dispatch)} type="submit">Submit</Button>
+                                        <Button color="success" onClick={() => this.saveCategory(this, dispatch)} type="submit">Submit</Button>
                                     </Form>
                                 </div>
 
