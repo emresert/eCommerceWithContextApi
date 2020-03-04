@@ -22,7 +22,7 @@ class CategoryList extends Component {
                   {categories.map(
                     cat =>(
                     
-                      <ListGroupItem onClick={this.changeCurrentCategory.bind(this,cat,dispatch)} key={cat.id}>{cat.categoryName}</ListGroupItem>
+                      <ListGroupItem active={cat.categoryName !=currentCategory?null:true} onClick={this.changeCurrentCategory.bind(this,cat,dispatch)} key={cat.id}>{cat.categoryName}</ListGroupItem>
                     
                     ) 
                   )}
