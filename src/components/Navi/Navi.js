@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
-
 import {
     Collapse,
     Navbar,
     NavbarToggler,
+    NavbarBrand,
     Nav,
     NavItem,
-    
+    NavLink,
 } from 'reactstrap';
-
-import {Link} from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 
 export default class Navi extends Component {
@@ -33,21 +32,21 @@ export default class Navi extends Component {
 
         return (
             <div>
-          
-                <Navbar style={{ backgroundColor: "dodgerblue", color: "white",height:"50px" }} expand="md">
-                    
-                       
-                        <Link id="RouterNavLink" style={{ textDecoration: "none", color: "white" }} to="/">e Commerce</Link>
-
+                <Navbar style={{ backgroundColor: "#ff8d01", color: "white" }} expand="md">
+                    <NavbarBrand >
+                        <Link style={{ textDecoration: "none", color: "white" }} to="/Home">e-commerce</Link>
+                    </NavbarBrand>
                     <NavbarToggler />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
 
                             <NavItem >
-                                <Link id="RouterNavLink" style={{ textDecoration: "none", color: "white" }} to="testCart">Cart Item </Link>
-                            </NavItem> &nbsp;|&nbsp;  
+                                <NavLink >Cart Item </NavLink>
+                            </NavItem>
                             <NavItem>
-                                    <Link id="RouterNavLink" style={{ textDecoration: "none", color: "white" }} to="">Add Product</Link>                             
+                                <NavLink >
+                                    <Link style={{ textDecoration: "none", color: "white" }} to="/saveproduct">Add Product</Link>
+                                </NavLink>
                             </NavItem>
                            
                         </Nav>

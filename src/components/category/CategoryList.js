@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ListGroup, ListGroupItem } from 'reactstrap'
 
 import CapsuleConsumer from '../../context/Context'
+import { Link } from 'react-router-dom';
 
 
 class CategoryList extends Component {
@@ -35,7 +36,9 @@ class CategoryList extends Component {
                     
                     ) 
                   )}
-                  <ListGroupItem style={{textAlign:"center",backgroundColor:"lightgray",fontWeight:"500"}}>Add a new category</ListGroupItem>
+                  <ListGroupItem style={{textAlign:"center",backgroundColor:"lightgray",fontWeight:"500"}}>
+                    <Link style={{textDecoration:"none"}} to="/CategoryAdd">Add a new category</Link>
+                    </ListGroupItem>
                   </ListGroup>
                  
               </div>
