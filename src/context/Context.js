@@ -17,7 +17,14 @@ switch (action.type) {
       return{
         filteredProduct: state.products.filter(x => x.categoryId === action.payload.id)
       } 
+      case "SAVE_CATEGORY_TO_API":
+      return{
+        ...state,
+        categories: fetch("http://localhost:3000/products").then(res => res.json())
+      } 
     default:
+      
+
       
     return state
 }
