@@ -1,20 +1,26 @@
 import React, { Component } from 'react';
 import { ListGroup, ListGroupItem } from 'reactstrap'
-import { Link } from 'react-router-dom';
+
 import CapsuleConsumer from '../../context/Context'
 
 
 class CategoryList extends Component {
 
-  changeCurrentCategory = (category,dispatch,e) => {
-   dispatch({type :"CHANGE_CURRENT_CATEGORY",payload : category})
+  
+ 
+  changeCurrentCategory = (category,dispatch) => {
+  dispatch({type :"CHANGE_CURRENT_CATEGORY",payload : category})
+  dispatch({type :"GET_PRODUCTS_BY_ID",payload : category})
   }
+
+ 
+
   render() {
     return (
       <CapsuleConsumer>
         {
-          value => {
-
+          value => {    
+           
             const { categories,dispatch,currentCategory} = value;
             return (
               <div>
@@ -22,17 +28,22 @@ class CategoryList extends Component {
                   {categories.map(
                     cat =>(
                     
-                      <ListGroupItem active={cat.categoryName !=currentCategory?null:true} onClick={this.changeCurrentCategory.bind(this,cat,dispatch)} key={cat.id}>{cat.categoryName}</ListGroupItem>
+                      <ListGroupItem style={{textAlign:"center"}} 
+                                     active={cat.categoryName !==currentCategory?null:true} 
+                                     onClick={()=>this.changeCurrentCategory(cat,dispatch)} 
+                                     key={cat.id}>{cat.categoryName}</ListGroupItem>
                     
                     ) 
                   )}
+                  <ListGroupItem style={{textAlign:"center",backgroundColor:"lightgray",fontWeight:"500"}}>Add a new category</ListGroupItem>
                   </ListGroup>
-                  <h2>{currentCategory}</h2>
+                 
               </div>
             )
 
           }
         }
+
       </CapsuleConsumer>
 
     )

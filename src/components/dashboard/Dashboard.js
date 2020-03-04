@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CategoryList from '../category/CategoryList'
 import { Row,Col } from 'reactstrap';
+import ProductList from '../product/ProductList';
 
 class Dashboard extends Component {
     render() {
@@ -13,7 +14,9 @@ class Dashboard extends Component {
                         </CategoryList>
                     </Col>
                     <Col xs="9">
-                       
+                       <ProductList>
+                           
+                       </ProductList>
                     </Col>
                     </Row>
                 

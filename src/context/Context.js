@@ -2,13 +2,21 @@ import React, { Component } from 'react';
 
 const CapsuleContext =  React.createContext();
 
+
+    
+
 const reducer = (state,action)=>{
 switch (action.type) {
   case "CHANGE_CURRENT_CATEGORY":
     return{
       ...state,
-    currentCategory : action.payload.categoryName
+    currentCategory : action.payload.id,
+   
     }
+    case "GET_PRODUCTS_BY_ID":
+      return{
+        filteredProduct: state.products.filter(x => x.categoryId === action.payload.id)
+      } 
     default:
       return state
 }
@@ -18,6 +26,7 @@ export class CapsuleProvider extends Component {
     state = {
         currentCategory: "",
         categories: [],
+        filteredProduct :[],
         products: [],
         apiUrl: "http://localhost:3000/",
         cart: [],
@@ -32,23 +41,24 @@ export class CapsuleProvider extends Component {
           .then(res => res.json())
           .then(data => this.setState({ categories: data }));
       }
-      getCategoryId = (catId) => {
-        this.getProducts(catId);
-      }
      
+     
+      /* --- Method of Product ---*/
+     getProducts (category){
+     
+        if (category.id) {
+         fetch(this.state.apiUrl + "products/?categoryId=" + category.id).then(res => res.json()).then(
+            data => this.setState({ products: data }),
+            data => this.setState({filteredProduct:data})
+            )
+        }
+        else {
+    
+         fetch(this.state.apiUrl + "products").then(res => res.json()).then(
+            data => this.setState({ products: data }))
+        }
+      }
 
-       /* --- Method of Product ---*/
-    getProducts = (categoryId) => {
-    if (categoryId) {
-      fetch(this.state.apiUrl + "products/?categoryId=" + categoryId).then(res => res.json()).then(
-        data => this.setState({ products: data }))
-    }
-    else {
-
-      fetch(this.state.apiUrl + "products").then(res => res.json()).then(
-        data => this.setState({ products: data }))
-    }
-  }
 
 
   /* --- Methods of Cart ---*/
@@ -77,7 +87,7 @@ export class CapsuleProvider extends Component {
 
   componentDidMount() {
     this.getCategories();
-    this.getProducts();
+    this.getProducts(this.state.currentCategory);
   }
 
     render() {

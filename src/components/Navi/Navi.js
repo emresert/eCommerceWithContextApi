@@ -4,12 +4,12 @@ import {
     Collapse,
     Navbar,
     NavbarToggler,
-    NavbarBrand,
     Nav,
     NavItem,
-    NavLink,
+    
 } from 'reactstrap';
-import { Link } from 'react-router-dom';
+
+import {Link} from "react-router-dom";
 
 
 export default class Navi extends Component {
@@ -33,22 +33,21 @@ export default class Navi extends Component {
 
         return (
             <div>
-                <Navbar style={{ backgroundColor: "#ff8d01", color: "white" }} expand="md">
+          
+                <Navbar style={{ backgroundColor: "dodgerblue", color: "white",height:"50px" }} expand="md">
                     
                        
-                        <NavLink id="RouterNavLink" style={{ textDecoration: "none", color: "white" }} to="/">e Commerce</NavLink>
+                        <Link id="RouterNavLink" style={{ textDecoration: "none", color: "white" }} to="/">e Commerce</Link>
 
                     <NavbarToggler />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
 
                             <NavItem >
-                                <NavLink >Cart Item </NavLink>
-                            </NavItem>
+                                <Link id="RouterNavLink" style={{ textDecoration: "none", color: "white" }} to="testCart">Cart Item </Link>
+                            </NavItem> &nbsp;|&nbsp;  
                             <NavItem>
-                             
-                                    <NavLink id="RouterNavLink" style={{ textDecoration: "none", color: "white" }} to="">Add Product</NavLink>
-                             
+                                    <Link id="RouterNavLink" style={{ textDecoration: "none", color: "white" }} to="">Add Product</Link>                             
                             </NavItem>
                            
                         </Nav>
