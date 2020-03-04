@@ -18,14 +18,22 @@ const reducer = (state, action) => {
         filteredProduct: state.products.filter(x => x.categoryId === action.payload.id)
       }
     case "SAVE_CATEGORY_TO_API":
+     
       fetch("http://localhost:3000/categories/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json"
         },
-        body: JSON.stringify(action.payload)
+        body: JSON.stringify(action.payload),
+        ...state,
+        categories: state.categories.push(action.payload)
+          
+        
+          
+        
       })
+     
       break;
 
     default:

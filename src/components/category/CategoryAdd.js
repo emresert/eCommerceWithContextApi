@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input, ListGroup, ListGroupItem } from 'reactstrap';
-import { Link } from "react-router-dom"
-import alertify from "alertifyjs";
 import CapsuleConsumer from '../../context/Context';
-import CategoryList from './CategoryList';
+
 
 class CategoryAdd extends Component {
 
     state = {
         isVisible: false,
         isShow: true,
-        value:"+ Open Form"    
+        value: "+ Open Form"
     }
 
     handleChange = (event) => {
@@ -24,16 +22,18 @@ class CategoryAdd extends Component {
 
     }
     saveCategory = (event, dispatch) => {
-        dispatch({ type: "SAVE_CATEGORY_TO_API", payload: {id : event.state.id , categoryName : event.state.categoryName , seoUrl:event.state.seoUrl}})
+        dispatch({ type: "SAVE_CATEGORY_TO_API", payload: { id: event.state.id, categoryName: event.state.categoryName, seoUrl: event.state.seoUrl } })
+        
+
     }
     onClickTest = () => {
         if (!this.state.isVisible) {
-            this.setState({ value: "+ Open Form" })  
+            this.setState({ value: "+ Open Form" })
         }
-        else{
+        else {
             this.setState({ value: "- Close Form" })
         }
-        
+
         this.setState({ isVisible: !this.state.isVisible })
         this.setState({ isShow: !this.state.isShow })
     }
@@ -42,7 +42,7 @@ class CategoryAdd extends Component {
         display: "none"
     }
     showDisplay = {
-        display:"none"
+        display: "none"
     }
 
     render() {
