@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import alertify from "alertifyjs"
 
 const CapsuleContext = React.createContext();
 
