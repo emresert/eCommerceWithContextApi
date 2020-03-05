@@ -11,8 +11,13 @@ class CategoryAdd extends Component {
     // State for special features of this Component
     state = {
         isVisible: false,
+        inputVisible:false,
         isShow: true,
-        value: "+ Open Form"
+        value: "+ Open Form",
+        categoryId:"",
+        categoryName:"",
+        seoUrl:"",
+        methodType:""
     }
 
     /*************** Dispatch Methods Part **************/ 
@@ -41,9 +46,18 @@ class CategoryAdd extends Component {
     }
 
     updateCategory = (_category,dispatch) => {
-        this.changeDisplay();
-
-        dispatch({ type: "UPDATE_CATEGORY", payload: _category})
+        this.setState({categoryId:_category.id,categoryName : _category.categoryName, seoUrl : _category.seoUrl,methodType:"PUT"})
+        this.setState({ isVisible: true})
+        this.setState({ value: "- Close Form" })
+        this.setState({ inputVisible: true })
+        
+       
+    const newCat = {
+        id : _category.id,
+        categoryName:this.state.categoryName,
+        seoUrl : this.state.seoUrl
+    }
+      dispatch({ type: "UPDATE_CATEGORY", payload: newCat})
     }
 
     /************ Form Part *************/ 
@@ -67,9 +81,10 @@ class CategoryAdd extends Component {
     changeDisplay = () => {
         if (this.state.isVisible) {
             this.setState({ value: "+ Open Form" })
+            
         }
         else {
-            this.setState({ value: "- Close Form" })
+            this.setState({ value: "- Close Form" , inputVisible:false ,categoryName : "", seoUrl : "" })
         }
         this.setState({ isVisible: !this.state.isVisible })
         this.setState({ isShow: !this.state.isShow })
@@ -81,7 +96,9 @@ class CategoryAdd extends Component {
     showDisplay = {
         display: "none"
     }
-
+    hideInput = {
+        display:"none"
+    }
     render() {
         return (
             <CapsuleConsumer>
@@ -95,13 +112,14 @@ class CategoryAdd extends Component {
                                 <Button color="success" onClick={this.changeDisplay} className="mt-5"> {this.state.value}</Button>
                                 <div style={this.state.isVisible ? null : this.hideDisplay}>
 
-                                    <Form className="mt-3  font-weight-bold" onSubmit={this.handleSubmit}>
-                                        <FormGroup className="text-left">
+                                    <Form  className="mt-3  font-weight-bold" onSubmit={this.handleSubmit}>
+                                        <FormGroup style={this.state.inputVisible?this.hideInput:null} className="text-left">
                                             <Label for="id">Category Id</Label>
-                                            <Input type="text"
+                                            <Input style={this.state.display}  type="text"
                                                 name="id"
                                                 onChange={this.handleChange}
-                                                placeholder={categories.length + 1}
+                                                value = {categories.length + 1}
+                                                disabled
                                                 required
                                             />
                                         </FormGroup>
@@ -111,6 +129,7 @@ class CategoryAdd extends Component {
                                                 name="categoryName"
                                                 onChange={this.handleChange}
                                                 placeholder="enter a category name"
+                                                value={this.state.categoryName}
                                                 required
                                                 />
                                         </FormGroup>
@@ -120,6 +139,7 @@ class CategoryAdd extends Component {
                                                 name="seoUrl"
                                                 onChange={this.handleChange}
                                                 placeholder="enter a seo url"
+                                                value={this.state.seoUrl}
                                                 required
                                                  />
                                         </FormGroup>
