@@ -9,15 +9,18 @@ const CapsuleContext = React.createContext();
 
 const reducer = (state, action) => {
   switch (action.type) {
+
     case "CHANGE_CURRENT_CATEGORY":
       return {
         ...state,
         currentCategory: action.payload.id,
       }
+      
     case "GET_PRODUCTS_BY_ID":
       return {
         filteredProduct: state.products.filter(x => x.categoryId === action.payload.id)
       }
+
     case "SAVE_CATEGORY_TO_API":
       fetch("http://localhost:3000/categories/", {
         method: "POST",
@@ -30,6 +33,21 @@ const reducer = (state, action) => {
         categories: state.categories.push(action.payload),
       })
       break;
+
+      case "DELETE_CATEGORY":
+        fetch("http://localhost:3000/categories/"+action.payload.id, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify(action.payload)
+        })
+        return {
+          ...state,
+          categories:state.categories.filter(c=>c.id < action.payload.id)
+        }
+        
     default:
     return state
   }
@@ -45,7 +63,7 @@ export class CapsuleProvider extends Component {
     products: [],
     apiUrl: "http://localhost:3000/",
     cart: [],
-    
+    history:[],
     dispatch: action => {
       this.setState(state => reducer(state, action))
     }

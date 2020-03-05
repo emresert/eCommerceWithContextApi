@@ -15,6 +15,39 @@ class CategoryAdd extends Component {
         value: "+ Open Form"
     }
 
+    /*************** Dispatch Methods Part **************/ 
+    // After every successful process, it will navigate 
+    // some path  defining by onClick method.
+    nextPath(path) {
+        this.props.history.push(path);
+    }
+
+
+
+    //  Saving Category Method from CategorySettings to Reducer via dispatch
+    saveCategory = (event, dispatch) => {
+        dispatch({ type: "SAVE_CATEGORY_TO_API", payload: { id: event.state.id, categoryName: event.state.categoryName, seoUrl: event.state.seoUrl } })
+        alertify.success(event.state.categoryName+ " added to Category List!")
+        this.nextPath('/Home')
+    }
+
+    //  Delete Category Method from CategorySettings to Reducer via dispatch
+    deleteCategory = (_category,dispatch)=>{
+        alertify.confirm('Remove Category', 'Do you want to delete this category?', function(){
+            dispatch({ type: "DELETE_CATEGORY", payload: _category})
+            alertify.error('Deleted!')
+            }
+        , function(){ alertify.error('Cancel')});
+    }
+
+    updateCategory = (_category,dispatch) => {
+        this.changeDisplay();
+
+        dispatch({ type: "UPDATE_CATEGORY", payload: _category})
+    }
+
+    /************ Form Part *************/ 
+
     // Catching differences between forms input via  fallowing method
     handleChange = (event) => {
         let value = event.target.value;
@@ -26,20 +59,10 @@ class CategoryAdd extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
     }
-
-    // After every successful process, it will navigate 
-    // some path  defining by onClick method.
-    nextPath(path) {
-        this.props.history.push(path);
-    }
-
-    //  Method of Navigate to Reducer via dispatch
-    saveCategory = (event, dispatch) => {
-        dispatch({ type: "SAVE_CATEGORY_TO_API", payload: { id: event.state.id, categoryName: event.state.categoryName, seoUrl: event.state.seoUrl } })
-        alertify.success(event.state.categoryName+ " added to Cart")
-        this.nextPath('/Home')
-    }
    
+
+
+    /*****************  Style Part ********************* */
     // Fallowing method will change display propert of html tag
     changeDisplay = () => {
         if (this.state.isVisible) {
@@ -65,9 +88,10 @@ class CategoryAdd extends Component {
                 {
                     value => {
 
-                        const { categories, dispatch, currentCategory } = value;
+                        const { categories, dispatch } = value;
                         return (
                             <div>
+                                
                                 <Button color="success" onClick={this.changeDisplay} className="mt-5"> {this.state.value}</Button>
                                 <div style={this.state.isVisible ? null : this.hideDisplay}>
 
@@ -100,6 +124,7 @@ class CategoryAdd extends Component {
                                                  />
                                         </FormGroup>
                                         <Button color="success" onClick={() => this.saveCategory(this, dispatch)} type="submit">Submit</Button>
+                                        
                                     </Form>
                                 </div>
 
@@ -107,9 +132,10 @@ class CategoryAdd extends Component {
                                     {categories.map(
                                         cat => (
                                             <ListGroupItem style={{ textAlign: "center" }}
-                                                active={cat.categoryName !== currentCategory ? null : true}
-                                                onClick={() => this.changeCurrentCategory(cat, dispatch)}
-                                                key={cat.id}>{cat.categoryName}</ListGroupItem>
+                                                key={cat.id}>
+                                                    <i onClick={() => this.updateCategory(cat, dispatch)} class="fas fa-edit" style={{float:"left",color:"orangered",cursor:"pointer"}}></i>
+                                                    {cat.categoryName} 
+                                                    <i onClick={() => this.deleteCategory(cat, dispatch)} class="fas fa-trash-alt" style={{float:"right",color:"firebrick",cursor:"pointer"}}></i></ListGroupItem>
                                         )
                                     )}
                                 </ListGroup>
