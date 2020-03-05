@@ -657,21 +657,6 @@
       "id": 8,
       "categoryName": "Seafood",
       "seoUrl": "seafood"
-    },
-    {
-      "id": "9",
-      "categoryName": "testCat",
-      "seoUrl": "testSeo"
-    },
-    {
-      "id": "10",
-      "categoryName": "testCat",
-      "seoUrl": "testSeo"
-    },
-    {
-      "id": "11",
-      "categoryName": "testCat",
-      "seoUrl": "testSeo"
     }
   ]
 }

@@ -4,7 +4,7 @@ const CapsuleContext = React.createContext();
 
 
 
-
+// *******  Reducer Part for Controlling Actions  *********** ///
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -12,7 +12,6 @@ const reducer = (state, action) => {
       return {
         ...state,
         currentCategory: action.payload.id,
-
       }
     case "GET_PRODUCTS_BY_ID":
       return {
@@ -27,18 +26,17 @@ const reducer = (state, action) => {
         },
         body: JSON.stringify(action.payload),
         ...state,
-        categories: state.categories.push(action.payload),       
+        categories: state.categories.push(action.payload),
       })
-     
       break;
-
     default:
-
-      return state
+    return state
   }
 }
-
+  
 export class CapsuleProvider extends Component {
+
+  // initial state for Provider and Consumer
   state = {
     currentCategory: "",
     categories: [],
@@ -46,12 +44,15 @@ export class CapsuleProvider extends Component {
     products: [],
     apiUrl: "http://localhost:3000/",
     cart: [],
+    
     dispatch: action => {
       this.setState(state => reducer(state, action))
     }
-
   }
 
+   /**************  Methods of Category  ******************/ 
+
+  // Fetching categories method when the project starts
   getCategories = () => {
     fetch(this.state.apiUrl + "categories")
       .then(res => res.json())
@@ -59,9 +60,10 @@ export class CapsuleProvider extends Component {
   }
 
 
-  /* --- Method of Product ---*/
-  getProducts(category) {
+ /**************  Methods of Product  ******************/ 
 
+  // Fetching products method when the project starts according to defining categoryId
+  getProducts(category) {
     if (category.id) {
       fetch(this.state.apiUrl + "products/?categoryId=" + category.id).then(res => res.json()).then(
         data => this.setState({ products: data }),
@@ -69,7 +71,6 @@ export class CapsuleProvider extends Component {
       )
     }
     else {
-
       fetch(this.state.apiUrl + "products").then(res => res.json()).then(
         data => this.setState({ products: data }))
     }
@@ -93,13 +94,13 @@ export class CapsuleProvider extends Component {
     }
 
     this.setState({ cart: newCart });
-    //alertify.success(_product.productName + " is added to cart")
+    alertify.success(_product.productName + " is added to cart")
   }
 
   removeItemFromCart = (_product) => {
     let newCart = this.state.cart.filter(p => p.product.id !== _product.id);
     this.setState({ cart: newCart });
-    // alertify.error(_product.productName + " removed from cart")
+   alertify.error(_product.productName + " removed from cart")
   }
 
 

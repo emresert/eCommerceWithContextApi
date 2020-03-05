@@ -3,10 +3,8 @@ import CapsuleConsumer from '../../context/Context';
 import {Table, Button} from "reactstrap";
 
 
+
 class ProductList extends Component {
-
-   
-
 
     render() {
         return (
