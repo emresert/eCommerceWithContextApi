@@ -659,9 +659,9 @@
       "seoUrl": "seafood"
     },
     {
-      "id": "9",
-      "categoryName": "etest",
-      "seoUrl": "eseo"
+      "id": 9,
+      "categoryName": "testCatEmre",
+      "seoUrl": "testSeoSert"
     }
   ]
 }

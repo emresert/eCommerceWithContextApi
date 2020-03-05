@@ -34,6 +34,19 @@ const reducer = (state, action) => {
       })
       break;
 
+      case "UPDATE_CATEGORY":
+      fetch("http://localhost:3000/categories/"+ action.payload.id, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(action.payload),
+        ...state,
+        categories: state.categories.push(action.payload),
+      })
+      break;
+
       case "DELETE_CATEGORY":
         fetch("http://localhost:3000/categories/"+action.payload.id, {
           method: "DELETE",
@@ -45,7 +58,7 @@ const reducer = (state, action) => {
         })
         return {
           ...state,
-          categories:state.categories.filter(c=>c.id < action.payload.id)
+          categories:state.categories.filter(c=>c.id !== action.payload.id)
         }
         
     default:
