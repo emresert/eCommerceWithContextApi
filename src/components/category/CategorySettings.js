@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input, ListGroup, ListGroupItem } from 'reactstrap';
 import CapsuleConsumer from '../../context/Context';
+import alertify from "alertifyjs"
+
+
 
 
 class CategoryAdd extends Component {
-
     state = {
         isVisible: false,
         isShow: true,
@@ -15,19 +17,23 @@ class CategoryAdd extends Component {
         let value = event.target.value;
         let name = event.target.name;
         this.setState({ [name]: value })
+
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
-
     }
+    nextPath(path) {
+        this.props.history.push(path);
+      }
     saveCategory = (event, dispatch) => {
         dispatch({ type: "SAVE_CATEGORY_TO_API", payload: { id: event.state.id, categoryName: event.state.categoryName, seoUrl: event.state.seoUrl } })
-        
-
+        alertify.success(event.state.categoryName+ " added to Cart")
+        this.nextPath('/Home')
     }
+   
     onClickTest = () => {
-        if (!this.state.isVisible) {
+        if (this.state.isVisible) {
             this.setState({ value: "+ Open Form" })
         }
         else {
@@ -66,6 +72,7 @@ class CategoryAdd extends Component {
                                                 name="id"
                                                 onChange={this.handleChange}
                                                 placeholder={categories.length + 1}
+                                                required
                                             />
                                         </FormGroup>
                                         <FormGroup className="text-left">
@@ -73,14 +80,18 @@ class CategoryAdd extends Component {
                                             <Input type="text"
                                                 name="categoryName"
                                                 onChange={this.handleChange}
-                                                placeholder="enter a category name" />
+                                                placeholder="enter a category name"
+                                                required
+                                                />
                                         </FormGroup>
                                         <FormGroup className="text-left">
                                             <Label for="seoUrl">Seo Url</Label>
                                             <Input type="text"
                                                 name="seoUrl"
                                                 onChange={this.handleChange}
-                                                placeholder="enter a seo url" />
+                                                placeholder="enter a seo url"
+                                                required
+                                                 />
                                         </FormGroup>
                                         <Button color="success" onClick={() => this.saveCategory(this, dispatch)} type="submit">Submit</Button>
                                     </Form>

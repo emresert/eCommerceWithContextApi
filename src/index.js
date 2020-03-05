@@ -6,6 +6,7 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
 import  {CapsuleProvider} from './context/Context'
+import 'alertifyjs/build/css/alertify.min.css' 
 
 ReactDOM.render(
 <CapsuleProvider ><BrowserRouter><App /></BrowserRouter></CapsuleProvider>

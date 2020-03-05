@@ -660,18 +660,18 @@
     },
     {
       "id": "9",
-      "categoryName": "etest",
-      "seoUrl": "eseo"
+      "categoryName": "testCat",
+      "seoUrl": "testSeo"
     },
     {
       "id": "10",
-      "categoryName": "etest",
-      "seoUrl": "eseo"
+      "categoryName": "testCat",
+      "seoUrl": "testSeo"
     },
     {
       "id": "11",
-      "categoryName": "etest",
-      "seoUrl": "eseo"
+      "categoryName": "testCat",
+      "seoUrl": "testSeo"
     }
   ]
 }

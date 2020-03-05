@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import CapsuleConsumer from '../../context/Context';
 import {Table, Button} from "reactstrap";
-import { Link } from 'react-router-dom'
+
 
 class ProductList extends Component {
 

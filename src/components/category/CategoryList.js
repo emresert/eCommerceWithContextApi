@@ -15,7 +15,6 @@ class CategoryList extends Component {
   }
 
  
-
   render() {
     return (
       <CapsuleConsumer>
@@ -37,7 +36,7 @@ class CategoryList extends Component {
                     ) 
                   )}
                   <ListGroupItem style={{textAlign:"center",backgroundColor:"lightgray",fontWeight:"500"}}>
-                    <Link style={{textDecoration:"none"}} to="/CategoryAdd">Add a new category</Link>
+                    <Link style={{textDecoration:"none"}} to="/CategorySettings">Category Settings</Link>
                     </ListGroupItem>
                   </ListGroup>
                  

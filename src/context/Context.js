@@ -5,6 +5,7 @@ const CapsuleContext = React.createContext();
 
 
 
+
 const reducer = (state, action) => {
   switch (action.type) {
     case "CHANGE_CURRENT_CATEGORY":
@@ -18,7 +19,6 @@ const reducer = (state, action) => {
         filteredProduct: state.products.filter(x => x.categoryId === action.payload.id)
       }
     case "SAVE_CATEGORY_TO_API":
-     
       fetch("http://localhost:3000/categories/", {
         method: "POST",
         headers: {
@@ -27,11 +27,7 @@ const reducer = (state, action) => {
         },
         body: JSON.stringify(action.payload),
         ...state,
-        categories: state.categories.push(action.payload)
-          
-        
-          
-        
+        categories: state.categories.push(action.payload),       
       })
      
       break;
