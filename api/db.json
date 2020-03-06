@@ -660,8 +660,8 @@
     },
     {
       "id": 9,
-      "categoryName": "testCat1",
-      "seoUrl": "testSeo1"
+      "categoryName": "testCat",
+      "seoUrl": "testSeo"
     }
   ]
 }

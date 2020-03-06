@@ -112,11 +112,7 @@ export class CapsuleProvider extends Component {
   }
 
 
-
-
-
-
-  /* --- Methods of Cart ---*/
+  /******* --- Methods of Cart --- **********/
   addToCart = (_product) => {
     let newCart = this.state.cart;
     let addedItem = newCart.find(p => p.product.id === _product.id)
@@ -137,7 +133,6 @@ export class CapsuleProvider extends Component {
     this.setState({ cart: newCart });
    alertify.error(_product.productName + " removed from cart")
   }
-
 
 
   componentDidMount() {

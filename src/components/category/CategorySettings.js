@@ -4,8 +4,6 @@ import CapsuleConsumer from '../../context/Context';
 import alertify from "alertifyjs"
 
 
-
-
 class CategorySettings extends Component {
 
     // State for special features of this Component
@@ -30,7 +28,7 @@ class CategorySettings extends Component {
 
 
 
-    //  Saving Category Method from CategorySettings to Reducer via dispatch
+    //  It includes Create and Update Category Methods from CategorySettings to Reducer via dispatch
     saveCategory = (event, dispatch,idFromLength) => {
         if (event.state.methodType !== "PUT") {
             const newCat = {
@@ -43,13 +41,15 @@ class CategorySettings extends Component {
             this.nextPath('/Home')
         }
         else {
-            const newCat = {
-                id:event.state.categoryIdForPutMethod,
-                categoryName: event.state.categoryName,
-                seoUrl: event.state.seoUrl
-            }
-            dispatch({ type: "UPDATE_CATEGORY", payload: newCat })
-            alertify.success("Category is updated as "+event.state.categoryName )
+            alertify.confirm('Update Category', 'Do you want to update this category?', function () {
+                const newCat = {
+                    id:event.state.categoryIdForPutMethod,
+                    categoryName: event.state.categoryName,
+                    seoUrl: event.state.seoUrl
+                }
+                dispatch({ type: "UPDATE_CATEGORY", payload: newCat })
+                alertify.success("Category is updated as "+event.state.categoryName )
+            }, function () { alertify.error('Cancel') });
             this.nextPath('/Home')
         }
 
@@ -64,7 +64,7 @@ class CategorySettings extends Component {
             , function () { alertify.error('Cancel') });
     }
 
-
+    //  Update Category Method from CategorySettings to Reducer via dispatch before Saving changes of category
     updateCategory = (_category) => {
         this.setState({ categoryIdForPutMethod : _category.id, categoryName: _category.categoryName, seoUrl: _category.seoUrl })
         this.setState({ isVisible: true })
@@ -88,13 +88,11 @@ class CategorySettings extends Component {
     }
 
 
-
     /*****************  Style Part ********************* */
     // Fallowing method will change display propert of html tag
     changeDisplay = () => {
         if (this.state.isVisible) {
             this.setState({ value: "+ Open Form" })
-
         }
         else {
             this.setState({ value: "- Close Form", inputVisible: false, categoryName: "", seoUrl: "" })
@@ -180,7 +178,6 @@ class CategorySettings extends Component {
                         )
                     }}
             </CapsuleConsumer>
-
         );
     }
 }
