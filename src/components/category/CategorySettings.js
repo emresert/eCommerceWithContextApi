@@ -6,7 +6,7 @@ import alertify from "alertifyjs"
 
 
 
-class CategoryAdd extends Component {
+class CategorySettings extends Component {
 
     // State for special features of this Component
     state = {
@@ -49,7 +49,7 @@ class CategoryAdd extends Component {
                 seoUrl: event.state.seoUrl
             }
             dispatch({ type: "UPDATE_CATEGORY", payload: newCat })
-            alertify.success(event.state.categoryName + " updated to Category List!")
+            alertify.success("Category is updated as "+event.state.categoryName )
             this.nextPath('/Home')
         }
 
@@ -185,4 +185,4 @@ class CategoryAdd extends Component {
     }
 }
 
-export default CategoryAdd;
+export default CategorySettings;

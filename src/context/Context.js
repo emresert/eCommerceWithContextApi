@@ -41,11 +41,13 @@ const reducer = (state, action) => {
           "Content-Type": "application/json",
           "Accept": "application/json"
         },
-        body: JSON.stringify(action.payload),
-        ...state,
-        categories: state.categories.push(action.payload),
+        body: JSON.stringify(action.payload)    
       })
-      break;
+      return{
+        ...state,
+        categories: state.categories.map(category=>category.id === action.payload.id?action.payload:category)
+      }
+   
 
       case "DELETE_CATEGORY":
         fetch("http://localhost:3000/categories/"+action.payload.id, {
@@ -58,7 +60,8 @@ const reducer = (state, action) => {
         })
         return {
           ...state,
-          categories:state.categories.filter(c=>c.id !== action.payload.id)
+          categories:state.categories.filter(c=>c.id !== action.payload.id),
+          
         }
         
     default:
